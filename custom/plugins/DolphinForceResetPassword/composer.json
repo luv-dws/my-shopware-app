@@ -1,0 +1,27 @@
+{
+    "name": "dolphin/force-reset-password",
+    "description": "Forces customers to reset their password before logging in if a custom field flag is enabled.",
+    "type": "shopware-platform-plugin",
+    "version": "1.0.0",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dolphin"
+        }
+    ],
+    "require": {
+        "shopware/core": "~6.7.0"
+    },
+    "extra": {
+        "shopware-plugin-class": "DolphinForceResetPassword\\DolphinForceResetPassword",
+        "label": {
+            "de-DE": "Dolphin Forced Password Reset",
+            "en-GB": "Dolphin Forced Password Reset"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "DolphinForceResetPassword\\": "src/"
+        }
+    }
+}
