@@ -18,3 +18,12 @@
 /install.lock
 /public/asset-manifest.json
 ###< shopware/core ###
+
+# Local environment and secret configs
+.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules/
+

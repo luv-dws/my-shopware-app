@@ -7,8 +7,7 @@
     <services>
 
         <service id="DolphinForceResetPassword\Subscriber\CustomerLoginSubscriber">
-            <argument type="service" id="router"/>
-            <argument type="service" id="request_stack"/>
+            <argument type="service" id="customer.repository"/>
             <tag name="kernel.event_subscriber"/>
         </service>
 

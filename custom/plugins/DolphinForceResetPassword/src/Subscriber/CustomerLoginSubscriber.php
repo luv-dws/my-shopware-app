@@ -3,58 +3,50 @@
 namespace DolphinForceResetPassword\Subscriber;
 
 use DolphinForceResetPassword\DolphinForceResetPassword;
-use Shopware\Core\Checkout\Customer\Event\CustomerLoginEvent;
+use Shopware\Core\Checkout\Customer\CustomerEntity;
+use Shopware\Core\Checkout\Customer\CustomerException;
+use Shopware\Core\Checkout\Customer\Event\CustomerBeforeLoginEvent;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Session\FlashBagAwareSessionInterface;
-use Symfony\Component\Routing\RouterInterface;
 
 class CustomerLoginSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private readonly RouterInterface $router,
-        private readonly RequestStack $requestStack
+        private readonly EntityRepository $customerRepository
     ) {}
 
     public static function getSubscribedEvents(): array
     {
         return [
-            CustomerLoginEvent::class => 'onCustomerLogin',
+            CustomerBeforeLoginEvent::class => 'onCustomerBeforeLogin',
         ];
     }
 
-    public function onCustomerLogin(CustomerLoginEvent $event): void
+    public function onCustomerBeforeLogin(CustomerBeforeLoginEvent $event): void
     {
-        $customer = $event->getCustomer();
-        $customFields = $customer->getCustomFields() ?? [];
-
-        $forceReset = $customFields[DolphinForceResetPassword::CUSTOM_FIELD_NAME] ?? false;
-
-        // Check if the forced reset flag is active
-        if (!$forceReset) {
+        $email = $event->getEmail();
+        if ($email === '') {
             return;
         }
 
-        // Invalidate current session/logout
-        $request = $this->requestStack->getCurrentRequest();
-        if ($request && $request->hasSession()) {
-            $session = $request->getSession();
-            $session->invalidate();
+        $criteria = new Criteria();
+        $criteria->addFilter(new EqualsFilter('email', $email));
 
-            if ($session instanceof FlashBagAwareSessionInterface) {
-                $session->getFlashBag()->add(
-                    'danger',
-                    'Your password must be updated before logging in. Please reset your password below.'
-                );
-            }
-            $session->save();
+        /** @var CustomerEntity|null $customer */
+        $customer = $this->customerRepository->search($criteria, $event->getContext())->first();
+
+        if ($customer === null) {
+            return;
         }
 
-        // Redirect to password recovery page
-        $redirectUrl = $this->router->generate('frontend.account.recover.page');
-        
-        // Prevent default login workflow by throwing a redirect exception or redirecting
-        header('Location: ' . $redirectUrl);
-        exit;
+        $customFields = $customer->getCustomFields() ?? [];
+        $forceReset = $customFields[DolphinForceResetPassword::CUSTOM_FIELD_NAME] ?? false;
+
+        // Check if the forced reset flag is active
+        if ($forceReset) {
+            throw CustomerException::passwordPoliciesUpdated();
+        }
     }
 }
