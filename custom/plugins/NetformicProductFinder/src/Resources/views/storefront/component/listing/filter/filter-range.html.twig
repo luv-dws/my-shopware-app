@@ -1,0 +1,16 @@
+{% sw_extends '@Storefront/storefront/component/listing/filter/filter-range.html.twig' %}
+
+{#
+Custom range/price filter item template for the Product Finder.
+Binds the custom ProductFinderFilterRangePlugin inside the offcanvas context.
+#}
+{% block component_filter_range %}
+    {% set pluginSelector = isProductFinder ? 'product-finder-filter-range' : 'filter-range' %}
+    <div class="filter-range filter-panel-item{% if sidebar %} d-grid{% else %} dropdown{% endif %}"
+         role="listitem"
+         data-{{ pluginSelector }}="true"
+         data-{{ pluginSelector }}-options="{{ filterRangeOptions|json_encode }}">
+        {{ block('component_filter_range_toggle') }}
+        {{ block('component_filter_range_dropdown') }}
+    </div>
+{% endblock %}

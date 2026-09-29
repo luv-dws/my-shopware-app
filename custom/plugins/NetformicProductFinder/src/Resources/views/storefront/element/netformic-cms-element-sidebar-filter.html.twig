@@ -1,0 +1,30 @@
+{% sw_extends '@Storefront/storefront/element/cms-element-sidebar-filter.html.twig' %}
+
+{#
+Custom sidebar filter element template for the Product Finder.
+Overrides the default filter button to disable default offcanvas behavior and includes the customized filter panel.
+#}
+{% block element_product_listing_filter_button %}
+    <button
+        class="btn btn-outline-primary filter-panel-wrapper-toggle"
+        type="button"
+        aria-haspopup="dialog"
+    >
+        {% block element_product_listing_filter_button_icon %}
+            {% sw_icon 'sliders-horizontal' style { size: 'sm' } %}
+        {% endblock %}
+
+        {{ 'listing.filterTitleText'|trans }}
+    </button>
+{% endblock %}
+
+{% block element_sidebar_filter_panel %}
+    <div id="filter-panel-wrapper" class="filter-panel-wrapper" data-off-canvas-filter-content="true">
+        {% sw_include '@Storefront/storefront/component/listing/filter-panel.html.twig' with {
+            listing: listing,
+            sidebar: sidebar,
+            ariaLiveUpdates: true,
+            isProductFinder: true
+        } %}
+    </div>
+{% endblock %}

@@ -1,0 +1,82 @@
+{#
+Offcanvas layout for the Product Finder.
+Renders the form, category navigation tabs, sidebar filters, text search input, and final submission controls.
+#}
+{% block utilities_offcanvas_content %}
+	<div class="offcanvas-body">
+		{% block product_finder_offcanvas_content %}
+			<form novalidate action="{{ path('frontend.search.page') }}" method="GET" id="product-finder-form" data-product-finder="true" data-offcanvas-url="{{ path('frontend.product-finder.offcanvas') }}">
+				{# Render Category Navigation Tabs #}
+				<div class="product-finder-categories">
+					{% for cat in categoryTabs %}
+						{% set catName = cat.translated.name ?: cat.name %}
+						<button type="button" class="btn btn-secondary btn-category{% if activeCategoryId == cat.id %} active{% endif %}" data-category-id="{{ cat.id }}" data-category-name="{{ catName }}">
+                            {{ catName|upper }}
+                        </button>
+					{% endfor %}
+					<button type="button" class="btn-close-custom ms-auto" data-bs-dismiss="offcanvas" aria-label="Close">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                        </svg>
+					</button>
+				</div>
+				{# Determine the active category name for the title #}
+				{% set activeCategoryName = 'Category' %}
+				{% for cat in categoryTabs %}
+					{% if activeCategoryId == cat.id %}
+						{% set activeCategoryName = cat.translated.name ?: cat.name %}
+					{% endif %}
+				{% endfor %}
+
+				<h2 class="product-finder-title" id="product-finder-title-header">
+					{{ "netformic-product-finder.general.search"|trans }}
+					{{ activeCategoryName }}
+				</h2>
+
+				<input type="hidden" name="categories" id="product-finder-category-input" value="{{ activeCategoryId }}">
+
+				{# Include standard Shopware sidebar filters #}
+				<div class="product-finder-filters-container">
+					{% sw_include '@Storefront/storefront/element/netformic-cms-element-sidebar-filter.html.twig' with {
+                        listing: listing,
+                        sidebar: false,
+                        isProductFinder: true
+                    } %}
+                    <div class="d-none netformic-cms-element-product-listing-wrapper">
+                        {% sw_include '@Storefront/storefront/component/product/netformic-listing.html.twig' with {
+                            searchResult: listing,
+                            dataUrl: path('widgets.search.pagelet.v2'),
+                            filterUrl: path('frontend.cms.navigation.filter', { navigationId: activeCategoryId }),
+                            params: { 
+                                search: page.searchTerm|default(''),
+                                categoryId: activeCategoryId
+                            },
+                            sidebar: 0,
+                            boxLayout: 'minimal',
+                            displayMode: '',
+                            ariaLiveUpdates: false,
+                            isProductFinder: true,
+                            disableEmptyFilter: true
+                        } %}
+                    </div>
+					{# Text search input field #}
+					<div class="mb-3 mt-3">
+						<label for="product-finder-search-input" class="form-label">{{ "netformic-product-finder.form.searchTerm"|trans }}</label>
+						<input type="text" class="form-control" id="product-finder-search-input" name="search" placeholder="{{ "netformic-product-finder.form.searchPlaceholder"|trans }}" value=""/>
+					</div>
+					{# Form submit action #}
+					<div class="mt-3 text-center">
+						<p class="product-finder-result-count fw-bold mb-2"
+							id="product-finder-result-count-display"
+							data-results-template="{{ "netformic-product-finder.general.results"|trans }}">
+							{{ "netformic-product-finder.general.results"|trans({ '%count%': listing|length }) }}
+						</p>
+						<button type="submit" class="btn btn-primary w-100">
+							{{ "netformic-product-finder.action.viewResults"|trans }}
+						</button>
+					</div>
+				</div>
+			</form>
+		{% endblock %}
+	</div>
+{% endblock %}

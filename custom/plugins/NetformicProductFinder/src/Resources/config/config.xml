@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/shopware/trunk/src/Core/System/SystemConfig/Schema/config.xsd">
+
+    <card>
+        <title>Firearms</title>
+        <component name="sw-entity-single-select">
+            <name>firearmsCategory</name>
+            <entity>category</entity>
+            <label>Firearms Category</label>
+            <labelProperty>breadcrumb</labelProperty>
+        </component>
+        <component name="sw-entity-multi-id-select">
+            <name>firearmsPropertyGroups</name>
+            <entity>property_group</entity>
+            <label>Allowed Property Groups for Firearms</label>
+            <helpText>If left empty, no properties will be displayed for this category.</helpText>
+        </component>
+    </card>
+
+    <card>
+        <title>Optics</title>
+        <component name="sw-entity-single-select">
+            <name>opticsCategory</name>
+            <entity>category</entity>
+            <label>Optics Category</label>
+            <labelProperty>breadcrumb</labelProperty>
+        </component>
+        <component name="sw-entity-multi-id-select">
+            <name>opticsPropertyGroups</name>
+            <entity>property_group</entity>
+            <label>Allowed Property Groups for Optics</label>
+            <helpText>If left empty, no properties will be displayed for this category.</helpText>
+        </component>
+    </card>
+
+    <card>
+        <title>Ammo</title>
+        <component name="sw-entity-single-select">
+            <name>ammoCategory</name>
+            <entity>category</entity>
+            <label>Ammo Category</label>
+            <labelProperty>breadcrumb</labelProperty>
+        </component>
+        <component name="sw-entity-multi-id-select">
+            <name>ammoPropertyGroups</name>
+            <entity>property_group</entity>
+            <label>Allowed Property Groups for Ammo</label>
+            <helpText>If left empty, no properties will be displayed for this category.</helpText>
+        </component>
+    </card>
+
+</config>

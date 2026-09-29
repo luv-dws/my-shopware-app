@@ -1,0 +1,39 @@
+{
+    "netformic-product-finder": {
+        "general": {
+            "productFinder": "Product Finder",
+            "categoryTabs": "Product Finder categories",
+            "searchFirearms": "Search Firearms",
+            "search": "Search",
+            "results": "Search result : %count%"
+        },
+        "segment": {
+            "firearms": "Firearms",
+            "optics": "Optics",
+            "ammo": "Ammo"
+        },
+        "form": {
+            "manufacturer": "Product Manufacturer",
+            "category": "Product Category",
+            "filterByCategory": "Filter by Category",
+            "price": "Price",
+            "searchTerm": "Search Term",
+            "searchPlaceholder": "Search for products...",
+            "onlyInStock": "Only show products in-stock"
+        },
+        "price": {
+            "under100": "Under $100",
+            "range100To200": "$100-200",
+            "range200To500": "$200-500",
+            "range500To1000": "$500-1000",
+            "over1000": "Over $1000"
+        },
+        "result": {
+            "zeroFound": "0 results found."
+        },
+        "action": {
+            "viewResults": "View Results",
+            "clear": "Clear"
+        }
+    }
+}

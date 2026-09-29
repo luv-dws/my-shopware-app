@@ -1,0 +1,15 @@
+{% sw_extends '@Storefront/storefront/component/listing/filter/filter-boolean.html.twig' %}
+
+{#
+Custom boolean filter item template for the Product Finder.
+Binds the custom ProductFinderFilterBooleanPlugin inside the offcanvas context.
+#}
+{% block component_filter_boolean_panel_item %}
+    {% set pluginSelector = isProductFinder ? 'product-finder-filter-boolean' : 'filter-boolean' %}
+    <div class="filter-boolean filter-panel-item"
+         role="listitem"
+         data-{{ pluginSelector }}="true"
+         data-{{ pluginSelector }}-options="{{ filterBooleanOptions|json_encode }}">
+        {{ block('component_filter_boolean_container') }}
+    </div>
+{% endblock %}

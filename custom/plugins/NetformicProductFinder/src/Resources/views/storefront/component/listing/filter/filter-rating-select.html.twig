@@ -1,0 +1,15 @@
+{% sw_extends '@Storefront/storefront/component/listing/filter/filter-rating-select.html.twig' %}
+
+{% if isProductFinder %}
+    {% set pluginSelector = 'product-finder-filter-rating-select' %}
+{% endif %}
+
+{#
+Custom rating select filter item template for the Product Finder.
+Binds the custom ProductFinderFilterRatingSelectPlugin inside the offcanvas context.
+#}
+
+{% block component_filter_multi_select %}
+    {{ parent() }}
+{% endblock %}
+

@@ -1,0 +1,29 @@
+{% sw_extends '@Storefront/storefront/layout/navbar/navbar.html.twig' %}
+
+{#
+Custom navigation bar template for the Product Finder.
+Adds the Product Finder trigger menu item to the main storefront navigation bar.
+#}
+{% block layout_navbar_menu_items %}
+    {{ parent() }}
+
+    {% block netformic_product_finder_navbar_menu_item %}
+        <li class="nav-item product-finder-nav-item">
+            <a class="nav-link main-navigation-link product-finder-trigger"
+                href="{{ path('frontend.product-finder.offcanvas') }}"
+                data-product-finder-offcanvas="true"
+                role="button"
+            >
+                <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4.57227 0.5H15.1649" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M4.57227 6.45862H15.1649" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M4.57227 12.4146H15.1649" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M0.5 0.500061H0.509037" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M0.5 6.45862H0.509037" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M0.5 12.4146H0.509037" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="main-navigation-link-text">{{ 'netformic-product-finder.general.productFinder'|trans|sw_sanitize }}</span>
+            </a>
+        </li>
+    {% endblock %}
+{% endblock %}

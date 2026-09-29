@@ -1,0 +1,24 @@
+{% sw_extends '@Storefront/storefront/component/listing/filter/filter-property-select.html.twig' %}
+
+{% if isProductFinder %}
+    {% set pluginSelector = 'product-finder-filter-property-select' %}
+    {% set dataPluginSelectorOptions = {
+        name: name,
+        propertyName: propertyName,
+        propertyId: propertyId|default(''),
+        snippets: {
+            disabledFilterText: 'listing.disabledFilterTooltip'|trans|sw_sanitize,
+            ariaLabel: ariaLabel,
+            ariaLabelCount: 'listing.filterCountAriaLabel'|trans|sw_sanitize
+        }
+    } %}
+{% endif %}
+
+{#
+Custom property select filter item template for the Product Finder.
+Binds the custom ProductFinderFilterPropertySelectPlugin inside the offcanvas context.
+#}
+
+{% block component_filter_multi_select %}
+    {{ parent() }}
+{% endblock %}

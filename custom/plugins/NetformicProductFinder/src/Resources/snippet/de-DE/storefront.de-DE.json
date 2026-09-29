@@ -1,0 +1,39 @@
+{
+    "netformic-product-finder": {
+        "general": {
+            "productFinder": "Produktfinder",
+            "categoryTabs": "Produktfinder-Kategorien",
+            "searchFirearms": "Waffen suchen",
+            "search": "Suchen",
+            "results": "Suchergebnis : %count%"
+        },
+        "segment": {
+            "firearms": "Waffen",
+            "optics": "Optik",
+            "ammo": "Munition"
+        },
+        "form": {
+            "manufacturer": "Hersteller",
+            "category": "Produktkategorie",
+            "filterByCategory": "Nach Kategorie filtern",
+            "price": "Preis",
+            "searchTerm": "Suchbegriff",
+            "searchPlaceholder": "Nach Produkten suchen...",
+            "onlyInStock": "Nur lagernde Produkte anzeigen"
+        },
+        "price": {
+            "under100": "Unter 100 $",
+            "range100To200": "100-200 $",
+            "range200To500": "200-500 $",
+            "range500To1000": "500-1000 $",
+            "over1000": "Über 1000 $"
+        },
+        "result": {
+            "zeroFound": "0 Ergebnisse gefunden."
+        },
+        "action": {
+            "viewResults": "Ergebnisse anzeigen",
+            "clear": "Zurücksetzen"
+        }
+    }
+}

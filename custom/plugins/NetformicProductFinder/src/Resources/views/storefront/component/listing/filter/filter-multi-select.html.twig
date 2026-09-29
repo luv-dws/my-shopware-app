@@ -1,0 +1,15 @@
+{% sw_extends '@Storefront/storefront/component/listing/filter/filter-multi-select.html.twig' %}
+
+{% if isProductFinder and (pluginSelector == 'filter-multi-select' or pluginSelector is not defined) %}
+    {% set pluginSelector = 'product-finder-filter-multi-select' %}
+{% endif %}
+
+{#
+Custom multi-select filter item template for the Product Finder.
+Binds the custom ProductFinderFilterMultiSelectPlugin inside the offcanvas context.
+#}
+
+{% block component_filter_multi_select %}
+    {{ parent() }}
+{% endblock %}
+

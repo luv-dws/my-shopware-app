@@ -1,0 +1,22 @@
+{
+    "name": "netformic-product-finder/netformic-product-finder",
+    "description": "netformic-product-finder/netformic-product-finder",
+    "type": "shopware-platform-plugin",
+    "version": "1.0.0",
+    "license": "MIT",
+    "require": {
+        "shopware/core": "~6.7.0"
+    },
+    "extra": {
+        "shopware-plugin-class": "Netformic\\ProductFinder\\NetformicProductFinder",
+        "label": {
+            "de-DE": "Product Finder",
+            "en-GB": "Product Finder"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Netformic\\ProductFinder\\": "src/"
+        }
+    }
+}

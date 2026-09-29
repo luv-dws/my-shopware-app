@@ -1,0 +1,36 @@
+{% sw_extends '@Storefront/storefront/component/product/listing.html.twig' %}
+
+{#
+Custom product listing template for the Product Finder.
+Binds the custom listing plugin and removes default layout elements like pagination, sorting, limit and view changers.
+#}
+{% block product_listing %}
+    <div class="cms-element-product-listing-wrapper"
+         {% if not isProductFinder %}
+             data-listing-pagination="true"
+             data-listing-pagination-options="{{ paginationConfig|json_encode }}"
+         {% endif %}
+         data-product-finder-listing="true"
+         data-product-finder-listing-options="{{ listingPagination|json_encode }}">
+         
+         <span class="product-finder-hidden-count d-none">{{ "netformic-product-finder.general.results"|trans({ '%count%': searchResult.total }) }}</span>
+
+        {% block element_product_listing_wrapper_content %}
+            {{ parent() }}
+        {% endblock %}
+    </div>
+    
+{% endblock %}
+
+{% block element_product_listing_pagination_nav_actions %}
+    {% if not isProductFinder %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+
+{% block product_view_change %}
+    {% if not isProductFinder %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+

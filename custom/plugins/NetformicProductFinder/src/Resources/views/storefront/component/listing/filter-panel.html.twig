@@ -1,0 +1,131 @@
+{% sw_extends '@Storefront/storefront/component/listing/filter-panel.html.twig' %}
+
+{#
+Customization of the standard filter panel for the Product Finder.
+Overrides and defines the filter categories, manufacturers, properties, price, and custom boolean filters.
+#}
+{% block component_filter_panel_item_manufacturer %}
+    {% set categoryAgg = listing.aggregations.get('categories') %}
+    {% if categoryAgg and not categoryAgg.entities is empty %}
+        {% set currentCategoryId = activeCategoryId ?: (page.navigationId ?: context.salesChannel.navigationCategoryId) %}
+        {% set isSearchPage = activeRoute == 'frontend.search.page' %}
+        
+        {% set childCategories = [] %}
+        {% for cat in categoryAgg.entities %}
+            {% if cat.id != context.salesChannel.navigationCategoryId %}
+                {% if isSearchPage %}
+                    {% set childCategories = childCategories|merge([cat]) %}
+                {% else %}
+                    {# On category listing page, display all subcategories (children and child-of-child) #}
+                    {% if currentCategoryId in cat.path or cat.parentId == currentCategoryId %}
+                        {% set childCategories = childCategories|merge([cat]) %}
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+
+        {% if not childCategories is empty %}
+            {% sw_include '@Storefront/storefront/component/listing/filter/filter-multi-select.html.twig' with {
+                elements: childCategories,
+                sidebar: sidebar,
+                name: 'categories',
+                displayName: 'netformic-product-finder.form.category'|trans|sw_sanitize,
+                ariaLabel: 'netformic-product-finder.form.filterByCategory'|trans|sw_sanitize,
+                isProductFinder: isProductFinder
+            } %}
+        {% endif %}
+    {% endif %}
+
+    {% set manufacturers = listing.aggregations.get('manufacturer') %}
+    {% if not manufacturers.entities is empty %}
+        {% set manufacturersSorted = manufacturers.entities|sort((a, b) => a.translated.name|lower <=> b.translated.name|lower) %}
+
+        {% sw_include '@Storefront/storefront/component/listing/filter/filter-multi-select.html.twig' with {
+            elements: manufacturersSorted,
+            sidebar: sidebar,
+            name: 'manufacturer',
+            displayName: 'listing.filterManufacturerDisplayName'|trans|sw_sanitize,
+            ariaLabel: 'listing.filterByManufacturerAriaLabel'|trans|sw_sanitize,
+            isProductFinder: isProductFinder
+        } %}
+    {% endif %}
+{% endblock %}
+
+{% block component_filter_panel_item_properties %}
+    {% set properties = listing.aggregations.get('properties') %}
+
+    {% if not properties.entities is empty %}
+        {% for property in properties.entities %}
+            {% sw_include '@Storefront/storefront/component/listing/filter/filter-property-select.html.twig' with {
+                elements: property.options,
+                sidebar: sidebar,
+                name: 'properties',
+                displayName: property.translated.name,
+                displayType: property.displayType,
+                pluginSelector: 'filter-property-select',
+                propertyName: property.translated.name,
+                ariaLabel: 'listing.filterByAriaLabel'|trans({'%name%': property.translated.name})|sw_sanitize,
+                isProductFinder: isProductFinder,
+                propertyId: property.id
+            } %}
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+
+{% block component_filter_panel_item_price %}
+    {% set price = listing.aggregations.get('price') %}
+
+    {% if price.min !== null and price.max !== null %}
+        {% sw_include '@Storefront/storefront/component/listing/filter/filter-range.html.twig' with {
+            sidebar: sidebar,
+            name: 'price',
+            minKey: 'min-price',
+            maxKey: 'max-price',
+            lowerBound: 0,
+            displayName: 'listing.filterPriceDisplayName'|trans|sw_sanitize,
+            minInputValue: 0,
+            maxInputValue: price.max,
+            ariaLabel: 'listing.filterByPriceAriaLabel'|trans|sw_sanitize,
+            isProductFinder: isProductFinder
+        } %}
+    {% endif %}
+{% endblock %}
+
+{% block component_filter_panel_item_rating_select %}
+    {% set rating = listing.aggregations.get('rating') %}
+
+    {% if rating.max > 0 %}
+        {% sw_include '@Storefront/storefront/component/listing/filter/filter-rating-select.html.twig' with {
+            sidebar: sidebar,
+            name: 'rating',
+            pluginSelector: 'filter-rating-select',
+            displayName: 'listing.filterRatingDisplayName'|trans|sw_sanitize,
+            ariaLabel: 'listing.filterByRatingAriaLabel'|trans|sw_sanitize,
+            isProductFinder: isProductFinder
+        } %}
+    {% endif %}
+{% endblock %}
+
+{% block component_filter_panel_item_shipping_free %}
+    {% set shippingFree = listing.aggregations.get('shipping-free') %}
+
+    {% if shippingFree.max > 0 %}
+        {% sw_include '@Storefront/storefront/component/listing/filter/filter-boolean.html.twig' with {
+            name: 'shipping-free',
+            displayName: 'listing.filterFreeShippingDisplayName'|trans|sw_sanitize,
+            altText: 'listing.filterFreeShippingAltText'|trans|sw_sanitize,
+            altTextActive: 'listing.filterFreeShippingAltTextActive'|trans|sw_sanitize,
+            isProductFinder: isProductFinder
+        } %}
+    {% endif %}
+
+    {% set onlyInStock = listing.aggregations.get('only-in-stock') %}
+
+    {% if onlyInStock and onlyInStock.max > 0 %}
+        {% sw_include '@Storefront/storefront/component/listing/filter/filter-boolean.html.twig' with {
+            name: 'only-in-stock',
+            displayName: 'netformic-product-finder.form.onlyInStock'|trans|sw_sanitize,
+            isProductFinder: isProductFinder
+        } %}
+    {% endif %}
+{% endblock %}
