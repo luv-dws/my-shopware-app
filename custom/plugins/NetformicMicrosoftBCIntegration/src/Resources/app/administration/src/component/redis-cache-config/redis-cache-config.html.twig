@@ -1,0 +1,26 @@
+<div class="netformic-bc-redis-cache-config">
+    <sw-text-field
+        v-model:value="systemIds"
+        label="System IDs"
+        placeholder="Enter one or more Business Central system IDs separated by commas"
+        :error="systemIdsError"
+    />
+
+    <div class="netformic-bc-redis-cache-config__actions">
+        <sw-button
+            variant="primary"
+            :is-loading="isLoading"
+            @click="flushBySystemId"
+        >
+            Flush Cache by System ID
+        </sw-button>
+
+        <sw-button
+            variant="danger"
+            :is-loading="isFlushAllLoading"
+            @click="flushAll"
+        >
+            Flush All Cache
+        </sw-button>
+    </div>
+</div>

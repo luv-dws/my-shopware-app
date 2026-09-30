@@ -1,0 +1,23 @@
+{
+    "netformic-bc": {
+        "order": {
+            "syncToBcButton": "Sync to BC",
+            "syncToBcInitiated": "Synchronizing order to Business Central...",
+            "syncToBcSuccess": "Order successfully synchronized with Business Central.",
+            "syncToBcError": "Failed to sync order: ",
+            "alreadySynced": "This order is already synchronized with BC."
+        },
+        "customer": {
+            "syncFromBcButton": "Sync from BC",
+            "syncFromBcInitiated": "Synchronizing customer from Business Central...",
+            "syncFromBcSuccess": "Customer successfully synchronized from Business Central.",
+            "syncFromBcError": "Failed to sync customer: "
+        },
+        "product": {
+            "syncFromBcButton": "Sync from BC",
+            "syncFromBcInitiated": "Synchronizing product from Business Central...",
+            "syncFromBcSuccess": "Product successfully synchronized from Business Central.",
+            "syncFromBcError": "Failed to sync product: "
+        }
+    }
+}

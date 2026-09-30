@@ -1,0 +1,135 @@
+{
+    "netformic-bc-integration": {
+        "checkout": {
+            "fflWarning": "Your cart contains FFL products, but your selected shipping address does not have a valid FFL document. Please upload a valid FFL document to proceed."
+        },
+        "orderSync": {
+            "orderNotFound": "Order not found.",
+            "customerNotFound": "Customer not found for order.",
+            "noValidOrderLines": "No valid order lines to sync.",
+            "dispatchedSyncRetries": "Dispatched %count% sync retries to queue.",
+            "retryTaskFailed": "Order sync retry task failed.",
+            "syncFailed": "Order sync failed.",
+            "syncSuccessManual": "Order synced to BC manually.",
+            "syncSuccessQueue": "Order synced to BC via queue.",
+            "emailTemplateNotFound": "Sync failure email template not found.",
+            "emailSendFailed": "Failed to send sync failure email.",
+            "payfabricLinkFailed": "Failed to link PayFabric transaction to BC order.",
+            "processingSyncOrderMessage": "Processing order sync from queue.",
+            "failedOrderTaskAlreadyRunning": "Failed order sync task is already running; aborting."
+        },
+        "bcApiClient": {
+            "notFullyConfigured": "BC integration is not fully configured.",
+            "fetchingCategories": "Fetching BC categories.",
+            "fetchCategoriesFailed": "Failed to fetch BC categories.",
+            "fetchCategoriesSuccess": "%count% categories fetched successfully.",
+            "fetchCategoriesException": "Error fetching BC categories.",
+            "fetchingProducts": "Fetching BC products.",
+            "fetchProductsFailed": "Failed to fetch BC products.",
+            "fetchProductsException": "Error fetching BC products.",
+            "fetchingCustomers": "Fetching BC customers.",
+            "fetchCustomersFailed": "Failed to fetch BC customers.",
+            "fetchCustomersException": "Error fetching BC customers.",
+            "fetchingCustomerBySystemId": "Fetching BC customer by system ID.",
+            "fetchCustomerBySystemIdFailed": "Failed to fetch BC customer by system ID.",
+            "fetchCustomerBySystemIdException": "Error fetching BC customer by system ID.",
+            "fetchingProductBySystemId": "Fetching BC product by system ID.",
+            "fetchProductBySystemIdFailed": "Failed to fetch BC product by system ID.",
+            "fetchProductBySystemIdException": "Error fetching BC product by system ID.",
+            "fetchCustomerAddressesFailed": "Failed to fetch BC customer addresses.",
+            "fetchCustomerAddressesException": "Error fetching BC customer addresses.",
+            "pushingOrder": "Pushing order to BC.",
+            "pushOrderFailed": "Failed to push order to BC.",
+            "pushOrderSuccess": "Order pushed to BC successfully.",
+            "pushOrderException": "Error pushing order to BC.",
+            "fetchingOrders": "Fetching BC orders.",
+            "fetchOrdersFailed": "Failed to fetch BC orders.",
+            "fetchOrdersException": "Error fetching BC orders.",
+            "fetchingSalesInvoices": "Fetching BC sales invoices.",
+            "fetchInvoicesFailed": "Failed to fetch BC invoices.",
+            "makingGenericRequest": "Executing BC API request.",
+            "pushPayFabricFailed": "Failed to push PayFabric transaction to BC.",
+            "pushPayFabricException": "Error pushing PayFabric transaction to BC.",
+            "notFullyConfiguredPayFabric": "BC integration is not fully configured for PayFabric transaction push.",
+            "curlError": "cURL Error: %error%",
+            "apiRequestFailed": "API request failed with status code %statusCode%.",
+            "apiRequestFailedWithDetails": "API request failed with status code %statusCode%. Error Code: %errorCode%. Message: %errorMessage%",
+            "apiRequestFailedWithResponse": "API request failed with status code %statusCode%. Response: %response%",
+            "payFabricTransactionError": "BC PFTransactions error (%errorCode%): %errorMessage%",
+            "unknownError": "Unknown Error",
+            "noAdditionalErrorMessage": "No additional error message provided."
+        },
+        "categorySync": {
+            "syncStarted": "Category sync started.",
+            "noCategoriesFetched": "No categories found in BC; sync skipped.",
+            "syncSuccess": "Category sync completed successfully.",
+            "syncFailed": "Category sync failed."
+        },
+        "customerSync": {
+            "syncBatchStarted": "Starting customer sync batch.",
+            "batchEmptySyncComplete": "No more customers found; sync complete.",
+            "customerMappingFailed": "Customer mapping failed.",
+            "bulkUpsertFailedFallback": "Bulk customer upsert failed; queuing individual syncs.",
+            "queueCustomerMissingSystemId": "Individual customer queue failed; missing systemId.",
+            "syncCompleted": "Customer sync completed.",
+            "customerNotFound": "Customer not found in BC during single sync.",
+            "taskAlreadyRunning": "Customer sync is already running; aborting."
+        },
+        "inventorySync": {
+            "syncBatchStarted": "Starting inventory sync batch.",
+            "datasetEndReached": "Inventory sync completed; end of dataset reached.",
+            "noMoreProducts": "No more products to fetch; inventory sync completed.",
+            "batchUpsertFailed": "Batch inventory upsert failed.",
+            "syncCompleted": "Inventory sync completed successfully.",
+            "taskAlreadyRunning": "Inventory sync is already running; aborting."
+        },
+        "invoiceSync": {
+            "syncStarted": "Starting invoice sync.",
+            "noInvoicesFound": "No invoices found in BC payload.",
+            "upsertingInvoices": "Upserting %count% invoices from BC.",
+            "upsertSuccess": "Successfully upserted %count% invoices.",
+            "syncCompleted": "Invoice sync completed successfully.",
+            "syncFailed": "Failed to sync invoices from BC.",
+            "asyncSyncFailed": "Async invoice sync failed.",
+            "taskAlreadyRunning": "Invoice sync is already running; aborting."
+        },
+        "orderStatusSync": {
+            "syncBatchStarted": "Starting order status sync batch.",
+            "orderNotFoundInShopware": "Order status sync failed : Order not found in Shopware.",
+            "transitionFailedFallback": "Status transition failed; updating directly.",
+            "stateIdNotFound": "State ID not found for forced transition.",
+            "directUpdateFailed": "Forced order status update failed.",
+            "transactionTransitionFailed": "Failed to transition order transaction status.",
+            "orderSyncError": "Order status sync failed for order.",
+            "syncExecutionError": "Order status sync execution failed.",
+            "taskAlreadyRunning": "Order status sync is already running; aborting."
+        },
+        "pricingSync": {
+            "syncBatchStarted": "Starting pricing sync batch.",
+            "datasetEndReached": "Pricing sync completed; end of dataset reached.",
+            "noMoreProducts": "No more products to fetch; pricing sync completed.",
+            "batchUpsertFailed": "Batch pricing upsert failed.",
+            "syncCompleted": "Pricing sync completed successfully.",
+            "taskAlreadyRunning": "Pricing sync is already running; aborting."
+        },
+        "productSync": {
+            "syncBatchStarted": "Starting product sync batch.",
+            "syncCompleted": "Product sync completed.",
+            "productMappingFailed": "Product mapping failed.",
+            "bulkUpsertFailedFallback": "Batch upsert failed; queuing individual syncs.",
+            "queueProductMissingSystemId": "Individual product queue failed; missing systemId.",
+            "deleteDiscontinuedSuccess": "Successfully deleted discontinued products.",
+            "deleteDiscontinuedFailed": "Failed to delete discontinued products.",
+            "productNotFound": "Product not found in BC during single sync.",
+            "taskAlreadyRunning": "Product sync is already running; aborting."
+        },
+        "customerSubscriber": {
+            "loginSyncFailed": "Customer login sync failed."
+        },
+        "orderImport": {
+            "taskAlreadyRunning": "Order import is already running; aborting.",
+            "processingQueueWorker": "Processing order import queue worker.",
+            "queueProcessingFailed": "Failed to process order import queue."
+        }
+    }
+}

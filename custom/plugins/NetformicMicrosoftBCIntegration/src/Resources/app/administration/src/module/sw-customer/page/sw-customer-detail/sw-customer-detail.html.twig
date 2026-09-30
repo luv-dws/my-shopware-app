@@ -1,0 +1,59 @@
+{# Override the customer detail smart bar actions to inject the Sync from BC button safely #}
+{% block sw_customer_detail_actions %}
+    <template #smart-bar-actions>
+        <span v-if="!editMode">
+            <mt-button
+                v-tooltip="{
+                    message: $tc('sw-privileges.tooltip.warning'),
+                    disabled: acl.can('customer.editor'),
+                    showOnDisabledElements: true
+                }"
+                class="sw-customer-detail__open-edit-mode-action"
+                variant="primary"
+                :disabled="isLoading || !acl.can('customer.editor')"
+                size="default"
+                @click.prevent="onActivateCustomerEditMode"
+            >
+                {{ $tc('sw-customer.detail.buttonEdit') }}
+            </mt-button>
+
+            <mt-button
+                v-if="hasBcSystemId"
+                variant="secondary"
+                size="default"
+                class="netformic-bc-sync-button"
+                :disabled="isLoading"
+                @click="onSyncFromBC"
+            >
+                {{ $tc('netformic-bc.customer.syncFromBcButton') }}
+            </mt-button>
+        </span>
+
+        <span v-else>
+            {% block sw_customer_detail_actions_cancel %}
+            <mt-button
+                :disabled="isLoading"
+                variant="secondary"
+                size="default"
+                @click="onAbortButtonClick"
+            >
+                {{ $tc('global.default.cancel') }}
+            </mt-button>
+            {% endblock %}
+
+            {% block sw_customer_detail_actions_save %}
+            <sw-button-process
+                class="sw-customer-detail__save-action"
+                :is-loading="isLoading"
+                :process-success="isSaveSuccessful"
+                :disabled="isLoading"
+                variant="primary"
+                @update:process-success="saveFinish"
+                @click.prevent="onSave"
+            >
+                {{ $tc('sw-customer.detail.buttonSave') }}
+            </sw-button-process>
+            {% endblock %}
+        </span>
+    </template>
+{% endblock %}

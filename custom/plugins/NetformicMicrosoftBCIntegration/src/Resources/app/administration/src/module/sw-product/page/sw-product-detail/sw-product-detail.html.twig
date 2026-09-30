@@ -1,0 +1,16 @@
+{# Override the product detail header actions to inject the Sync from BC button #}
+{% block sw_product_detail_actions_abort %}
+    <span v-if="hasBcSystemId">
+        <mt-button
+            variant="secondary"
+            size="default"
+            class="netformic-bc-sync-button"
+            :disabled="isLoading"
+            @click="onSyncFromBC"
+        >
+            {{ $tc('netformic-bc.product.syncFromBcButton') }}
+        </mt-button>
+    </span>
+
+    {% parent %}
+{% endblock %}

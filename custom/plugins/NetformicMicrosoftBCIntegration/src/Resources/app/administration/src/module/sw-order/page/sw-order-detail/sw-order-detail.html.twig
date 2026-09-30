@@ -1,0 +1,15 @@
+{# Handles the sw_order_detail_actions_abort component in the storefront/admin #}
+{% block sw_order_detail_actions_abort %}
+    
+    <mt-button
+        variant="secondary"
+        size="default"
+        class="netformic-bc-sync-button"
+        :disabled="isOrderSynced"
+        @click="onSyncToBC"
+    >
+        {{ $tc('netformic-bc.order.syncToBcButton') }}
+    </mt-button>
+
+    {% parent %}
+{% endblock %}

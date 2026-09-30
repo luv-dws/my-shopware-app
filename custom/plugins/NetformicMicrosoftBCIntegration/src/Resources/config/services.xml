@@ -1,0 +1,495 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <!-- Core API logger -->
+        <service id="monolog.handler.netformic_bc_api" class="Monolog\Handler\RotatingFileHandler">
+            <argument>%kernel.logs_dir%/netformic_bc_api_%kernel.environment%.log</argument>
+            <argument>14</argument>
+            <argument type="constant">Monolog\Logger::INFO</argument>
+        </service>
+
+        <service id="netformic_bc.logger" class="Monolog\Logger">
+            <argument>netformic_bc</argument>
+            <call method="pushHandler">
+                <argument type="service" id="monolog.handler.netformic_bc_api" />
+            </call>
+        </service>
+
+        <!-- Category synchronization logger -->
+        <service id="monolog.handler.netformic_bc_category_sync" class="Monolog\Handler\RotatingFileHandler">
+            <argument>%kernel.logs_dir%/netformic_bc_category_sync_%kernel.environment%.log</argument>
+            <argument>14</argument>
+            <argument type="constant">Monolog\Logger::INFO</argument>
+        </service>
+
+        <service id="netformic_bc_category.logger" class="Monolog\Logger">
+            <argument>netformic_bc_category</argument>
+            <call method="pushHandler">
+                <argument type="service" id="monolog.handler.netformic_bc_category_sync" />
+            </call>
+        </service>
+
+        <!-- Product synchronization logger -->
+        <service id="monolog.handler.netformic_bc_product_sync" class="Monolog\Handler\RotatingFileHandler">
+            <argument>%kernel.logs_dir%/netformic_bc_product_sync_%kernel.environment%.log</argument>
+            <argument>14</argument>
+            <argument type="constant">Monolog\Logger::INFO</argument>
+        </service>
+
+        <service id="netformic_bc_product.logger" class="Monolog\Logger">
+            <argument>netformic_bc_product</argument>
+            <call method="pushHandler">
+                <argument type="service" id="monolog.handler.netformic_bc_product_sync" />
+            </call>
+        </service>
+
+        <!-- Inventory synchronization logger -->
+        <service id="monolog.handler.netformic_bc_inventory_sync" class="Monolog\Handler\RotatingFileHandler">
+            <argument>%kernel.logs_dir%/netformic_bc_inventory_sync_%kernel.environment%.log</argument>
+            <argument>14</argument>
+            <argument type="constant">Monolog\Logger::INFO</argument>
+        </service>
+
+        <service id="netformic_bc_inventory.logger" class="Monolog\Logger">
+            <argument>netformic_bc_inventory</argument>
+            <call method="pushHandler">
+                <argument type="service" id="monolog.handler.netformic_bc_inventory_sync" />
+            </call>
+        </service>
+
+        <!-- Pricing synchronization logger -->
+        <service id="monolog.handler.netformic_bc_pricing_sync" class="Monolog\Handler\RotatingFileHandler">
+            <argument>%kernel.logs_dir%/netformic_bc_pricing_sync_%kernel.environment%.log</argument>
+            <argument>14</argument>
+            <argument type="constant">Monolog\Logger::INFO</argument>
+        </service>
+
+        <service id="netformic_bc_pricing.logger" class="Monolog\Logger">
+            <argument>netformic_bc_pricing</argument>
+            <call method="pushHandler">
+                <argument type="service" id="monolog.handler.netformic_bc_pricing_sync" />
+            </call>
+        </service>
+
+        <!-- Customer synchronization logger -->
+        <service id="monolog.handler.netformic_bc_customer_sync" class="Monolog\Handler\RotatingFileHandler">
+            <argument>%kernel.logs_dir%/netformic_bc_customer_sync_%kernel.environment%.log</argument>
+            <argument>14</argument>
+            <argument type="constant">Monolog\Logger::INFO</argument>
+        </service>
+
+        <service id="netformic_bc_customer.logger" class="Monolog\Logger">
+            <argument>netformic_bc_customer</argument>
+            <call method="pushHandler">
+                <argument type="service" id="monolog.handler.netformic_bc_customer_sync" />
+            </call>
+        </service>
+
+        <!-- Order synchronization logger -->
+        <service id="monolog.handler.netformic_bc_order_sync" class="Monolog\Handler\RotatingFileHandler">
+            <argument>%kernel.logs_dir%/netformic_bc_order_sync_%kernel.environment%.log</argument>
+            <argument>14</argument>
+            <argument type="constant">Monolog\Logger::INFO</argument>
+        </service>
+
+        <service id="monolog.handler.netformic_bc_invoice_sync" class="Monolog\Handler\RotatingFileHandler">
+            <argument>%kernel.logs_dir%/netformic_bc_invoice_sync_%kernel.environment%.log</argument>
+            <argument>14</argument>
+            <argument type="constant">Monolog\Logger::INFO</argument>
+        </service>
+
+        <service id="netformic_bc_order.logger" class="Monolog\Logger">
+            <argument>netformic_bc_order</argument>
+            <call method="pushHandler">
+                <argument type="service" id="monolog.handler.netformic_bc_order_sync" />
+            </call>
+        </service>
+
+        <!-- Invoice synchronization logger -->
+        <service id="netformic_bc_invoice.logger" class="Monolog\Logger">
+            <argument>netformic_bc_invoice</argument>
+            <call method="pushHandler">
+                <argument type="service" id="monolog.handler.netformic_bc_invoice_sync" />
+            </call>
+        </service>
+
+        <!-- Business Central API client -->
+        <service id="Netformic\MicrosoftBCIntegration\Service\BcApiClient">
+            <argument type="service" id="http_client" />
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
+            <argument type="service" id="netformic_bc.logger" />
+            <argument type="service" id="translator" />
+        </service>
+
+        <!-- Category synchronization services -->
+        <service id="Netformic\MicrosoftBCIntegration\Service\CategorySyncService">
+            <argument type="service" id="Netformic\MicrosoftBCIntegration\Service\BcApiClient" />
+            <argument type="service" id="category.repository" />
+            <argument type="service" id="netformic_bc_category.logger" />
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
+            <argument type="service" id="translator" />
+        </service>
+
+        <service id="Netformic\MicrosoftBCIntegration\MessageQueue\Handler\SyncCategoriesHandler">
+            <argument type="service" id="Netformic\MicrosoftBCIntegration\Service\CategorySyncService" />
+            <argument type="service" id="netformic_bc_category.logger" />
+            <argument type="service" id="translator" />
+            <tag name="messenger.message_handler" />
+        </service>
+
+        <!-- Product synchronization services -->
+        <service id="Netformic\MicrosoftBCIntegration\Service\ProductSyncService">
+            <argument type="service" id="Netformic\MicrosoftBCIntegration\Service\BcApiClient" />
+            <argument type="service" id="product.repository" />
+            <argument type="service" id="netformic_bc_product.logger" />
+            <argument type="service" id="messenger.default_bus" />
+            <argument type="service" id="tax.repository" />
+            <argument type="service" id="category.repository" />
+            <argument type="service" id="sales_channel.repository" />
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
+            <argument type="service" id="translator" />
+        </service>
+
+        <service id="Netformic\MicrosoftBCIntegration\MessageQueue\Handler\SyncProductsHandler">
+            <argument type="service" id="Netformic\MicrosoftBCIntegration\Service\ProductSyncService" />
+            <argument type="service" id="netformic_bc_product.logger" />
+            <argument type="service" id="translator" />
+            <tag name="messenger.message_handler" />
+        </service>
+
+        <service id="Netformic\MicrosoftBCIntegration\MessageQueue\Handler\SyncProductHandler">
+            <argument type="service" id="Netformic\MicrosoftBCIntegration\Service\ProductSyncService" />
+            <tag name="messenger.message_handler" />
+        </service>
+
+        <!-- Inventory synchronization services -->
+        <service id="Netformic\MicrosoftBCIntegration\Service\InventorySyncService">
+            <argument type="service" id="Netformic\MicrosoftBCIntegration\Service\BcApiClient" />
+            <argument type="service" id="product.repository" />
+            <argument type="service" id="netformic_bc_inventory.logger" />
+            <argument type="service" id="messenger.default_bus" />
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
+            <argument type="service" id="translator" />
+        </service>
+
+        <service id="Netformic\MicrosoftBCIntegration\MessageQueue\Handler\SyncInventoryHandler">
+            <argument type="service" id="Netformic\MicrosoftBCIntegration\Service\InventorySyncService" />
+            <argument type="service" id="netformic_bc_inventory.logger" />
+            <argument type="service" id="translator" />
+            <tag name="messenger.message_handler" />
+        </service>
+
+        <!-- Pricing synchronization services -->
+        <service id="Netformic\MicrosoftBCIntegration\Service\PricingSyncService">
+            <argument type="service" id="Netformic\MicrosoftBCIntegration\Service\BcApiClient" />
+            <argument type="service" id="product.repository" />
+            <argument type="service" id="netformic_bc_pricing.logger" />
+            <argument type="service" id="messenger.default_bus" />
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
+            <argument type="service" id="translator" />
+        </service>
+
+        <service id="Netformic\MicrosoftBCIntegration\MessageQueue\Handler\SyncPricingHandler">
+            <argument type="service" id="Netformic\MicrosoftBCIntegration\Service\PricingSyncService" />
+            <argument type="service" id="netformic_bc_pricing.logger" />
+            <argument type="service" id="translator" />
+            <tag name="messenger.message_handler" />
+        </service>
+
+        <!-- Customer synchronization services -->
+        <service id="Netformic\MicrosoftBCIntegration\Service\CustomerSyncService">
+            <argument type="service" id="Netformic\MicrosoftBCIntegration\Service\BcApiClient" />
+            <argument type="service" id="customer.repository" />
+            <argument type="service" id="netformic_bc_customer.logger" />
+            <argument type="service" id="messenger.default_bus" />
+            <argument type="service" id="customer_group.repository" />
+            <argument type="service" id="sales_channel.repository" />
+            <argument type="service" id="payment_method.repository" />
+            <argument type="service" id="salutation.repository" />
+            <argument type="service" id="country.repository" />
+            <argument type="service" id="country_state.repository" />
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
+            <argument type="service" id="translator" />
+        </service>
+
+        <service id="Netformic\MicrosoftBCIntegration\MessageQueue\Handler\SyncCustomersHandler">
+            <argument type="service" id="Netformic\MicrosoftBCIntegration\Service\CustomerSyncService" />
+            <argument type="service" id="netformic_bc_customer.logger" />
+            <argument type="service" id="translator" />
+            <tag name="messenger.message_handler" />
+        </service>
+
+        <service id="Netformic\MicrosoftBCIntegration\MessageQueue\Handler\SyncCustomerHandler">
+            <argument type="service" id="Netformic\MicrosoftBCIntegration\Service\CustomerSyncService" />
+            <tag name="messenger.message_handler" />
+        </service>
+
+        <service id="Netformic\MicrosoftBCIntegration\Subscriber\CustomerSubscriber">
+            <argument type="service" id="Netformic\MicrosoftBCIntegration\Service\CustomerSyncService" />
+            <argument type="service" id="netformic_bc_customer.logger" />
+            <argument type="service" id="translator" />
+            <tag name="kernel.event_subscriber" />
+        </service>
+
+        <!-- Scheduled task: category synchronization -->
+        <service id="Netformic\MicrosoftBCIntegration\ScheduledTask\CategorySyncTask">
+            <tag name="shopware.scheduled.task" />
+        </service>
+
+        <service id="Netformic\MicrosoftBCIntegration\ScheduledTask\CategorySyncTaskHandler">
+            <argument type="service" id="scheduled_task.repository" />
+            <argument type="service" id="netformic_bc_category.logger" />
+            <argument type="service" id="messenger.default_bus" />
+            <tag name="messenger.message_handler" />
+        </service>
+
+        <!-- Scheduled task: product synchronization -->
+        <service id="Netformic\MicrosoftBCIntegration\ScheduledTask\ProductSyncTask">
+            <tag name="shopware.scheduled.task" />
+        </service>
+
+        <service id="Netformic\MicrosoftBCIntegration\ScheduledTask\ProductSyncTaskHandler">
+            <argument type="service" id="scheduled_task.repository" />
+            <argument type="service" id="netformic_bc_product.logger" />
+            <argument type="service" id="messenger.default_bus" />
+            <argument type="service" id="lock.factory" />
+            <argument type="service" id="translator" />
+            <tag name="messenger.message_handler" />
+        </service>
+
+        <!-- Scheduled task: inventory synchronization -->
+        <service id="Netformic\MicrosoftBCIntegration\ScheduledTask\InventorySyncTask">
+            <tag name="shopware.scheduled.task" />
+        </service>
+
+        <service id="Netformic\MicrosoftBCIntegration\ScheduledTask\InventorySyncTaskHandler">
+            <argument type="service" id="scheduled_task.repository" />
+            <argument type="service" id="netformic_bc_inventory.logger" />
+            <argument type="service" id="messenger.default_bus" />
+            <argument type="service" id="lock.factory" />
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
+            <argument type="service" id="translator" />
+            <tag name="messenger.message_handler" />
+        </service>
+
+        <!-- Scheduled task: pricing synchronization -->
+        <service id="Netformic\MicrosoftBCIntegration\ScheduledTask\PricingSyncTask">
+            <tag name="shopware.scheduled.task" />
+        </service>
+
+        <service id="Netformic\MicrosoftBCIntegration\ScheduledTask\PricingSyncTaskHandler">
+            <argument type="service" id="scheduled_task.repository" />
+            <argument type="service" id="netformic_bc_pricing.logger" />
+            <argument type="service" id="messenger.default_bus" />
+            <argument type="service" id="lock.factory" />
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
+            <argument type="service" id="translator" />
+            <tag name="messenger.message_handler" />
+        </service>
+
+        <!-- Scheduled task: customer synchronization -->
+        <service id="Netformic\MicrosoftBCIntegration\ScheduledTask\CustomerSyncTask">
+            <tag name="shopware.scheduled.task" />
+        </service>
+
+        <service id="Netformic\MicrosoftBCIntegration\ScheduledTask\CustomerSyncTaskHandler">
+            <argument type="service" id="scheduled_task.repository" />
+            <argument type="service" id="netformic_bc_customer.logger" />
+            <argument type="service" id="messenger.default_bus" />
+            <argument type="service" id="lock.factory" />
+            <argument type="service" id="translator" />
+            <tag name="messenger.message_handler" />
+        </service>
+
+        <!-- Order subscriber -->
+        <service id="Netformic\MicrosoftBCIntegration\Subscriber\OrderSubscriber">
+            <argument type="service" id="order.repository" />
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
+            <argument type="service" id="messenger.default_bus" />
+            <argument type="service" id="Netformic\MicrosoftBCIntegration\Service\OrderSyncService" />
+            <tag name="kernel.event_subscriber" />
+        </service>
+
+        <service id="Netformic\MicrosoftBCIntegration\MessageQueue\Handler\SyncOrderHandler">
+            <argument type="service" id="Netformic\MicrosoftBCIntegration\Service\OrderSyncService" />
+            <argument type="service" id="netformic_bc_order.logger" />
+            <argument type="service" id="translator" />
+            <tag name="messenger.message_handler"/>
+        </service>
+
+        <service id="Netformic\MicrosoftBCIntegration\Controller\Api\OrderSyncController" public="true">
+            <argument type="service" id="Netformic\MicrosoftBCIntegration\Service\OrderSyncService"/>
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+        <service id="Netformic\MicrosoftBCIntegration\Controller\Api\EntitySyncController" public="true">
+            <argument type="service" id="Netformic\MicrosoftBCIntegration\Service\CustomerSyncService"/>
+            <argument type="service" id="Netformic\MicrosoftBCIntegration\Service\ProductSyncService"/>
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+        <service id="Netformic\MicrosoftBCIntegration\Controller\Api\RedisCacheController" public="true">
+            <argument type="service" id="Netformic\MicrosoftBCIntegration\Service\ProductCacheService"/>
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+
+        <!-- Checkout subscriber for FFL validation and cart/checkout stock/price validation -->
+        <service id="Netformic\MicrosoftBCIntegration\Subscriber\CheckoutSubscriber">
+            <argument type="service" id="product.repository" />
+            <argument type="service" id="translator" />
+            <argument type="service" id="Netformic\MicrosoftBCIntegration\Service\ProductCacheService" />
+            <argument type="service" id="Shopware\Core\Checkout\Cart\SalesChannel\CartService" />
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
+            <argument type="service" id="rule.repository" />
+            <tag name="kernel.event_subscriber" />
+        </service>
+
+        <!-- Sales Invoice entity registration -->
+        <service id="Netformic\MicrosoftBCIntegration\Core\Content\SalesInvoice\SalesInvoiceDefinition">
+            <tag name="shopware.entity.definition" entity="netformic_bc_sales_invoice" />
+        </service>
+
+        <!-- Sales Invoice Line entity registration -->
+        <service id="Netformic\MicrosoftBCIntegration\Core\Content\SalesInvoiceLine\SalesInvoiceLineDefinition">
+            <tag name="shopware.entity.definition" entity="netformic_bc_sales_invoice_line" />
+        </service>
+
+
+
+        <service id="Netformic\MicrosoftBCIntegration\ScheduledTask\InvoiceSyncTask">
+            <tag name="shopware.scheduled.task" />
+        </service>
+
+        <service id="Netformic\MicrosoftBCIntegration\ScheduledTask\InvoiceSyncTaskHandler">
+            <argument type="service" id="scheduled_task.repository" />
+            <argument type="service" id="netformic_bc_invoice.logger" />
+            <argument type="service" id="messenger.default_bus" />
+            <argument type="service" id="lock.factory" />
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
+            <argument type="service" id="translator" />
+            <tag name="messenger.message_handler" />
+        </service>
+
+        <service id="Netformic\MicrosoftBCIntegration\ScheduledTask\FailedOrderSyncTask">
+            <tag name="shopware.scheduled.task" />
+        </service>
+
+        <service id="Netformic\MicrosoftBCIntegration\Service\OrderSyncService">
+            <argument type="service" id="Netformic\MicrosoftBCIntegration\Service\BcApiClient" />
+            <argument type="service" id="netformic_bc_order.logger" />
+            <argument type="service" id="order.repository" />
+            <argument type="service" id="product.repository" />
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
+            <argument type="service" id="Shopware\Core\Content\Mail\Service\MailService" />
+            <argument type="service" id="mail_template.repository" />
+            <argument type="service" id="messenger.default_bus" />
+            <argument type="service" id="translator" />
+
+        </service>
+
+        <service id="Netformic\MicrosoftBCIntegration\ScheduledTask\FailedOrderSyncTaskHandler">
+            <argument type="service" id="scheduled_task.repository" />
+            <argument type="service" id="netformic_bc_order.logger" />
+            <argument type="service" id="lock.factory" />
+            <argument type="service" id="Netformic\MicrosoftBCIntegration\Service\OrderSyncService" />
+            <argument type="service" id="translator" />
+            <tag name="messenger.message_handler" />
+        </service>
+
+
+        <service id="Netformic\MicrosoftBCIntegration\ScheduledTask\OrderStatusSyncTask">
+            <tag name="shopware.scheduled.task" />
+        </service>
+
+        <service id="Netformic\MicrosoftBCIntegration\ScheduledTask\OrderStatusSyncTaskHandler">
+            <argument type="service" id="scheduled_task.repository" />
+            <argument type="service" id="netformic_bc_order.logger" />
+            <argument type="service" id="messenger.default_bus" />
+            <argument type="service" id="lock.factory" />
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
+            <argument type="service" id="translator" />
+            <tag name="messenger.message_handler" />
+        </service>
+
+        <service id="Netformic\MicrosoftBCIntegration\Service\OrderStatusSyncService">
+            <argument type="service" id="Netformic\MicrosoftBCIntegration\Service\BcApiClient" />
+            <argument type="service" id="order.repository" />
+            <argument type="service" id="netformic_bc_order.logger" />
+            <argument type="service" id="messenger.default_bus" />
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
+            <argument type="service" id="state_machine_state.repository" />
+            <argument type="service" id="Shopware\Core\System\StateMachine\StateMachineRegistry" />
+            <argument type="service" id="translator" />
+        </service>
+
+        <service id="Netformic\MicrosoftBCIntegration\MessageQueue\Handler\SyncOrderStatusBatchHandler">
+            <argument type="service" id="Netformic\MicrosoftBCIntegration\Service\OrderStatusSyncService" />
+            <argument type="service" id="netformic_bc_order.logger" />
+            <argument type="service" id="translator" />
+            <tag name="messenger.message_handler" />
+        </service>
+
+        <service id="Netformic\MicrosoftBCIntegration\MessageQueue\Handler\SyncOrderStatusHandler">
+            <argument type="service" id="Netformic\MicrosoftBCIntegration\Service\OrderStatusSyncService" />
+            <tag name="messenger.message_handler" />
+        </service>
+
+        <service id="Netformic\MicrosoftBCIntegration\Service\InvoiceSyncService">
+            <argument type="service" id="Netformic\MicrosoftBCIntegration\Service\BcApiClient" />
+            <argument type="service" id="netformic_bc_sales_invoice.repository" />
+            <argument type="service" id="order.repository" />
+            <argument type="service" id="product.repository" />
+            <argument type="service" id="customer.repository" />
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
+            <argument type="service" id="messenger.default_bus" />
+            <argument type="service" id="netformic_bc_invoice.logger" />
+            <argument type="service" id="translator" />
+        </service>
+
+        <service id="Netformic\MicrosoftBCIntegration\MessageQueue\Handler\SyncInvoicesHandler">
+            <argument type="service" id="Netformic\MicrosoftBCIntegration\Service\InvoiceSyncService" />
+            <argument type="service" id="netformic_bc_invoice.logger" />
+            <argument type="service" id="translator" />
+            <tag name="messenger.message_handler" />
+        </service>
+
+        <service id="Netformic\MicrosoftBCIntegration\Subscriber\ProductSubscriber">
+            <argument type="service" id="Netformic\MicrosoftBCIntegration\Service\ProductCacheService" />
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="Netformic\MicrosoftBCIntegration\Core\Content\Cms\ProductSliderCmsElementResolverDecorator"
+                 decorates="Shopware\Core\Content\Product\Cms\ProductSliderCmsElementResolver">
+            <argument type="service" id="Netformic\MicrosoftBCIntegration\Core\Content\Cms\ProductSliderCmsElementResolverDecorator.inner"/>
+            <argument type="service" id="Netformic\MicrosoftBCIntegration\Service\ProductCacheService"/>
+            <tag name="shopware.cms.data_resolver"/>
+        </service>
+
+        <service id="Netformic\MicrosoftBCIntegration\MessageQueue\Handler\SyncProductUpsertHandler">
+            <argument type="service" id="product.repository" />
+            <argument type="service" id="netformic_bc_product.logger" />
+            <tag name="messenger.message_handler" />
+        </service>
+
+        <service id="Netformic\MicrosoftBCIntegration\Service\ProductCacheService">
+            <argument type="service" id="Netformic\MicrosoftBCIntegration\Service\RedisService" />
+            <argument type="service" id="Netformic\MicrosoftBCIntegration\Service\BcApiClient" />
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
+            <argument type="service" id="product.repository" />
+            <argument type="service" id="messenger.default_bus" on-invalid="null" />
+        </service>
+
+        <service id="Netformic\MicrosoftBCIntegration\Service\RedisService">
+            <argument type="service" id="Shopware\Core\Framework\Adapter\Redis\RedisConnectionProvider" />
+        </service>
+    </services>
+</container>

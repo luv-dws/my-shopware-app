@@ -1,0 +1,135 @@
+{
+    "netformic-bc-integration": {
+        "checkout": {
+            "fflWarning": "Ihr Warenkorb enthält FFL-Produkte, aber für Ihre ausgewählte Lieferadresse liegt kein gültiges FFL-Dokument vor. Bitte laden Sie ein gültiges FFL-Dokument hoch, um fortzufahren."
+        },
+        "orderSync": {
+            "orderNotFound": "Bestellung nicht gefunden.",
+            "customerNotFound": "Kein Kunde für die Bestellung gefunden.",
+            "noValidOrderLines": "Keine gültigen Bestellpositionen zum Synchronisieren.",
+            "dispatchedSyncRetries": "%count% Synchronisations-Wiederholungen an Queue gesendet.",
+            "retryTaskFailed": "Auftragssynchronisierungs-Task fehlgeschlagen.",
+            "syncFailed": "Auftragssynchronisierung fehlgeschlagen.",
+            "syncSuccessManual": "Bestellung manuell mit BC synchronisiert.",
+            "syncSuccessQueue": "Bestellung über Warteschlange mit BC synchronisiert.",
+            "emailTemplateNotFound": "E-Mail-Vorlage für Synchronisationsfehler nicht gefunden.",
+            "emailSendFailed": "Fehler beim Senden der Fehler-E-Mail.",
+            "payfabricLinkFailed": "Verknüpfung der PayFabric-Transaktion mit BC-Auftrag fehlgeschlagen.",
+            "processingSyncOrderMessage": "Bestell-Synchronisation aus der Warteschlange wird verarbeitet.",
+            "failedOrderTaskAlreadyRunning": "Synchronisation fehlgeschlagener Aufträge läuft bereits; Task wird abgebrochen."
+        },
+        "bcApiClient": {
+            "notFullyConfigured": "BC-Integration ist nicht vollständig konfiguriert.",
+            "fetchingCategories": "BC-Kategorien werden abgerufen.",
+            "fetchCategoriesFailed": "Abrufen der BC-Kategorien fehlgeschlagen.",
+            "fetchCategoriesSuccess": "%count% BC-Kategorien erfolgreich abgerufen.",
+            "fetchCategoriesException": "Fehler beim Abrufen der BC-Kategorien.",
+            "fetchingProducts": "BC-Produkte werden abgerufen.",
+            "fetchProductsFailed": "Abrufen der BC-Produkte fehlgeschlagen.",
+            "fetchProductsException": "Fehler beim Abrufen der BC-Produkte.",
+            "fetchingCustomers": "BC-Kunden werden abgerufen.",
+            "fetchCustomersFailed": "Abrufen der BC-Kunden fehlgeschlagen.",
+            "fetchCustomersException": "Fehler beim Abrufen der BC-Kunden.",
+            "fetchingCustomerBySystemId": "BC-Kunde wird per System-ID abgerufen.",
+            "fetchCustomerBySystemIdFailed": "Abrufen des BC-Kunden per System-ID fehlgeschlagen.",
+            "fetchCustomerBySystemIdException": "Fehler beim Abrufen des BC-Kunden per System-ID.",
+            "fetchingProductBySystemId": "BC-Produkt wird per System-ID abgerufen.",
+            "fetchProductBySystemIdFailed": "Abrufen des BC-Produkts per System-ID fehlgeschlagen.",
+            "fetchProductBySystemIdException": "Fehler beim Abrufen des BC-Produkts per System-ID.",
+            "fetchCustomerAddressesFailed": "Abrufen der BC-Kundenadressen fehlgeschlagen.",
+            "fetchCustomerAddressesException": "Fehler beim Abrufen der BC-Kundenadressen.",
+            "pushingOrder": "Auftrag wird an BC übertragen.",
+            "pushOrderFailed": "Übertragung des Auftrags an BC fehlgeschlagen.",
+            "pushOrderSuccess": "Auftrag erfolgreich an BC übertragen.",
+            "pushOrderException": "Fehler bei Übertragung des Auftrags an BC.",
+            "fetchingOrders": "BC-Aufträge werden abgerufen.",
+            "fetchOrdersFailed": "Abrufen der BC-Aufträge fehlgeschlagen.",
+            "fetchOrdersException": "Fehler beim Abrufen der BC-Aufträge.",
+            "fetchingSalesInvoices": "BC-Verkaufsrechnungen werden abgerufen.",
+            "fetchInvoicesFailed": "Abrufen der BC-Rechnungen fehlgeschlagen.",
+            "makingGenericRequest": "BC-API-Anfrage wird ausgeführt.",
+            "pushPayFabricFailed": "Übertragung der PayFabric-Transaktion an BC fehlgeschlagen.",
+            "pushPayFabricException": "Fehler bei PayFabric-Übertragung an BC.",
+            "notFullyConfiguredPayFabric": "BC-Integration ist für den PayFabric-Transaktions-Push nicht vollständig konfiguriert.",
+            "curlError": "cURL-Fehler: %error%",
+            "apiRequestFailed": "API-Anfrage mit Statuscode %statusCode% fehlgeschlagen.",
+            "apiRequestFailedWithDetails": "API-Anfrage mit Statuscode %statusCode% fehlgeschlagen. Fehlercode: %errorCode%. Nachricht: %errorMessage%",
+            "apiRequestFailedWithResponse": "API-Anfrage mit Statuscode %statusCode% fehlgeschlagen. Antwort: %response%",
+            "payFabricTransactionError": "BC PFTransactions-Fehler (%errorCode%): %errorMessage%",
+            "unknownError": "Unbekannter Fehler",
+            "noAdditionalErrorMessage": "Keine zusätzliche Fehlermeldung angegeben."
+        },
+        "categorySync": {
+            "syncStarted": "Category sync started.",
+            "noCategoriesFetched": "No categories found in BC; sync skipped.",
+            "syncSuccess": "Category sync completed successfully.",
+            "syncFailed": "Category sync failed."
+        },
+        "customerSync": {
+            "syncBatchStarted": "Kunden-Synchronisations-Batch gestartet.",
+            "batchEmptySyncComplete": "Keine weiteren Kunden gefunden; Synchronisation abgeschlossen.",
+            "customerMappingFailed": "Kundenzuordnung fehlgeschlagen.",
+            "bulkUpsertFailedFallback": "Massen-Aktualisierung fehlgeschlagen; Einzelsynchronisationen werden eingereiht.",
+            "queueCustomerMissingSystemId": "Einzelsynchronisation fehlgeschlagen; systemId fehlt.",
+            "syncCompleted": "Kundensynchronisation abgeschlossen.",
+            "customerNotFound": "Kunde während Einzelsynchronisation in BC nicht gefunden.",
+            "taskAlreadyRunning": "Kundensynchronisation läuft bereits; Task wird abgebrochen."
+        },
+        "inventorySync": {
+            "syncBatchStarted": "Lagerbestand-Synchronisations-Batch gestartet.",
+            "datasetEndReached": "Lagerbestand-Synchronisation abgeschlossen; Ende des Datensatzes erreicht.",
+            "noMoreProducts": "Keine weiteren Produkte abzurufen; Lagerbestand-Synchronisation abgeschlossen.",
+            "batchUpsertFailed": "Massen-Aktualisierung des Lagerbestands fehlgeschlagen.",
+            "syncCompleted": "Lagerbestand-Synchronisation erfolgreich abgeschlossen.",
+            "taskAlreadyRunning": "Lagerbestand-Synchronisation läuft bereits; Task wird abgebrochen."
+        },
+        "invoiceSync": {
+            "syncStarted": "Rechnungssynchronisation gestartet.",
+            "noInvoicesFound": "Keine Rechnungen in BC-Nutzlast gefunden.",
+            "upsertingInvoices": "%count% Rechnungen von BC werden aktualisiert.",
+            "upsertSuccess": "%count% Rechnungen erfolgreich aktualisiert.",
+            "syncCompleted": "Rechnungssynchronisation erfolgreich abgeschlossen.",
+            "syncFailed": "Synchronisation der Rechnungen von BC fehlgeschlagen.",
+            "asyncSyncFailed": "Asynchrone Rechnungs-Synchronisation fehlgeschlagen.",
+            "taskAlreadyRunning": "Rechnungssynchronisation läuft bereits; Task wird abgebrochen."
+        },
+        "orderStatusSync": {
+            "syncBatchStarted": "Auftragsstatus-Synchronisations-Batch gestartet.",
+            "orderNotFoundInShopware": "Bestellung in Shopware nicht gefunden.",
+            "transitionFailedFallback": "Statusübergang fehlgeschlagen; direkte Aktualisierung.",
+            "stateIdNotFound": "Status-ID für erzwungenen Übergang nicht gefunden.",
+            "directUpdateFailed": "Erzwungene Aktualisierung des Auftragsstatus fehlgeschlagen.",
+            "transactionTransitionFailed": "Übergang des Transaktionsstatus fehlgeschlagen.",
+            "orderSyncError": "Synchronisation des Auftragsstatus für Bestellung fehlgeschlagen.",
+            "syncExecutionError": "Ausführung der Auftragsstatus-Synchronisation fehlgeschlagen.",
+            "taskAlreadyRunning": "Auftragsstatus-Synchronisation läuft bereits; Task wird abgebrochen."
+        },
+        "pricingSync": {
+            "syncBatchStarted": "Preissynchronisations-Batch gestartet.",
+            "datasetEndReached": "Preissynchronisation abgeschlossen; Ende des Datensatzes erreicht.",
+            "noMoreProducts": "Keine weiteren Produkte abzurufen; Preissynchronisation abgeschlossen.",
+            "batchUpsertFailed": "Massen-Aktualisierung der Preise fehlgeschlagen.",
+            "syncCompleted": "Preissynchronisation erfolgreich abgeschlossen.",
+            "taskAlreadyRunning": "Preissynchronisation läuft bereits; Task wird abgebrochen."
+        },
+        "productSync": {
+            "syncBatchStarted": "Produktsynchronisations-Batch gestartet.",
+            "syncCompleted": "Produktsynchronisation abgeschlossen.",
+            "productMappingFailed": "Produktzuordnung fehlgeschlagen.",
+            "bulkUpsertFailedFallback": "Massen-Aktualisierung fehlgeschlagen; Einzelsynchronisationen werden eingereiht.",
+            "queueProductMissingSystemId": "Einzelsynchronisation fehlgeschlagen; systemId fehlt.",
+            "deleteDiscontinuedSuccess": "Ausgelaufene Produkte erfolgreich gelöscht.",
+            "deleteDiscontinuedFailed": "Löschen ausgelaufener Produkte fehlgeschlagen.",
+            "productNotFound": "Produkt während Einzelsynchronisation in BC nicht gefunden.",
+            "taskAlreadyRunning": "Produktsynchronisation läuft bereits; Task wird abgebrochen."
+        },
+        "customerSubscriber": {
+            "loginSyncFailed": "Kunden-Login-Synchronisation fehlgeschlagen."
+        },
+        "orderImport": {
+            "taskAlreadyRunning": "Auftragsimport läuft bereits; Task wird abgebrochen.",
+            "processingQueueWorker": "Auftragsimport-Warteschlangen-Worker wird verarbeitet.",
+            "queueProcessingFailed": "Fehler beim Verarbeiten der Auftragsimport-Warteschlange."
+        }
+    }
+}

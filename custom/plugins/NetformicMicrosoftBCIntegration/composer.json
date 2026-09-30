@@ -1,0 +1,34 @@
+{
+  "name": "netformic/microsoft-bc-integration",
+  "description": "Microsoft BC Integration",
+  "type": "shopware-platform-plugin",
+  "version": "1.0.0",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Netformic",
+      "email": "info@netformic.com",
+      "homepage": "https://netformic.com"
+    }
+  ],
+  "require": {
+    "shopware/core": "~6.7.0"
+  },
+  "extra": {
+    "shopware-plugin-class": "Netformic\\MicrosoftBCIntegration\\NetformicMicrosoftBCIntegration",
+    "copyright": "(c) by Netformic",
+    "label": {
+      "de-DE": "Microsoft BC Integration",
+      "en-GB": "Microsoft BC Integration"
+    },
+    "description": {
+      "de-DE": "Microsoft BC Integration",
+      "en-GB": "Microsoft BC Integration"
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Netformic\\MicrosoftBCIntegration\\": "src/"
+    }
+  }
+}

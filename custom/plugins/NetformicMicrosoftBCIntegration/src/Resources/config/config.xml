@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/shopware/trunk/src/Core/System/SystemConfig/Schema/config.xsd">
+
+    <card>
+        <title>Sandbox Credentials</title>
+        <input-field type="text">
+            <name>sandboxApiUrl</name>
+            <label>Standard API URL</label>
+        </input-field>
+        <input-field type="text">
+            <name>sandboxCustomApiUrl</name>
+            <label>Custom API URL</label>
+        </input-field>
+        <input-field type="text">
+            <name>sandboxUsername</name>
+            <label>Username</label>
+        </input-field>
+
+        <input-field type="password">
+            <name>sandboxPassword</name>
+            <label>Password</label>
+        </input-field>
+    </card>
+    <card>
+        <title>Production Credentials</title>
+        <input-field type="text">
+            <name>productionApiUrl</name>
+            <label>Standard API URL</label>
+        </input-field>
+        <input-field type="text">
+            <name>productionCustomApiUrl</name>
+            <label>Custom API URL</label>
+        </input-field>
+        <input-field type="text">
+            <name>productionUsername</name>
+            <label>Username</label>
+        </input-field>
+
+        <input-field type="password">
+            <name>productionPassword</name>
+            <label>Password</label>
+        </input-field>
+    </card>
+    <card>
+        <title>General Configurations</title>
+        <input-field type="text">
+            <name>companyId</name>
+            <label>Company ID</label>
+        </input-field>
+
+        <input-field type="bool">
+            <name>currentApiMode</name>
+            <label>Sandbox Mode</label>
+            <label lang="de-DE">Sandbox-Modus</label>
+            <helpText>Switch on to enable Sandbox mode, switch off for Production mode.</helpText>
+            <helpText lang="de-DE">Aktivieren für Sandbox-Modus, deaktivieren für Produktions-Modus.</helpText>
+        </input-field>
+
+        <component name="sw-entity-single-select">
+            <name>rootCategoryId</name>
+            <entity>category</entity>
+            <label>Parent Category for Import</label>
+        </component>
+
+        <input-field type="int">
+            <name>customerSyncBatchSize</name>
+            <label>Customer Sync Batch Size</label>
+            <label lang="de-DE">Kunden-Sync-Stapelgröße</label>
+            <defaultValue>50</defaultValue>
+        </input-field>
+
+        <input-field type="int">
+            <name>productSyncBatchSize</name>
+            <label>Product Sync Batch Size</label>
+            <label lang="de-DE">Produkt-Sync-Stapelgröße</label>
+            <defaultValue>50</defaultValue>
+        </input-field>
+
+        <input-field type="int">
+            <name>inventorySyncBatchSize</name>
+            <label>Inventory Sync Batch Size</label>
+            <label lang="de-DE">Bestands-Sync-Stapelgröße</label>
+            <defaultValue>100</defaultValue>
+        </input-field>
+
+        <input-field type="int">
+            <name>pricingSyncBatchSize</name>
+            <label>Pricing Sync Batch Size</label>
+            <label lang="de-DE">Preis-Sync-Stapelgröße</label>
+            <defaultValue>100</defaultValue>
+        </input-field>
+
+        <input-field type="int">
+            <name>invoiceSyncBatchSize</name>
+            <label>Invoice Sync Batch Size</label>
+            <label lang="de-DE">Rechnungs-Sync-Stapelgröße</label>
+            <defaultValue>50</defaultValue>
+        </input-field>
+
+        <input-field type="int">
+            <name>orderImportBatchSize</name>
+            <label>Order Import Batch Size</label>
+            <label lang="de-DE">Bestellungs-Import-Stapelgröße</label>
+            <defaultValue>50</defaultValue>
+        </input-field>
+
+
+
+        <input-field type="int">
+            <name>redisCacheTtl</name>
+            <label>Redis Cache TTL (seconds)</label>
+            <label lang="de-DE">Redis-Cache-TTL (Sekunden)</label>
+            <defaultValue>3600</defaultValue>
+        </input-field>
+
+        <component name="netformic-bc-redis-cache-config">
+            <name>redisCacheManagement</name>
+        </component>
+
+        <input-field type="bool">
+            <name>enableOrderSyncFailureEmail</name>
+            <label>Enable Order Sync Failure Email</label>
+            <label lang="de-DE">Aktivieren Sie die E-Mail bei fehlgeschlagener Bestellungs-Sync</label>
+            <defaultValue>false</defaultValue>
+        </input-field>
+
+        <component name="sw-entity-single-select">
+            <name>orderSyncFailureEmailTemplateId</name>
+            <entity>mail_template</entity>
+            <labelProperty>description</labelProperty>
+            <label>Order Sync Failure Email Template</label>
+            <label lang="de-DE">E-Mail-Vorlage bei fehlgeschlagener Bestellungs-Sync</label>
+        </component>
+    </card>
+</config>
